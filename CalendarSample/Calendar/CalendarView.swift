@@ -43,16 +43,18 @@ struct CalendarView: View {
             }
             
             GeometryReader { geo in
-                HStack(spacing: 0,content: {
-                    Grid(horizontalSpacing: 0) {
-                        GridRow {
-                            Text("日").frame(width: geo.size.width / 7).foregroundStyle(.red)
-                            Text("月").frame(width: geo.size.width / 7)
-                            Text("火").frame(width: geo.size.width / 7)
-                            Text("水").frame(width: geo.size.width / 7)
-                            Text("木").frame(width: geo.size.width / 7)
-                            Text("金").frame(width: geo.size.width / 7)
-                            Text("土").frame(width: geo.size.width / 7).foregroundStyle(.blue)
+                VStack {
+                    HStack(spacing: 0,content: {
+                        Grid(horizontalSpacing: 0) {
+                            GridRow {
+                                Text("日").frame(width: geo.size.width / 7).foregroundStyle(.red)
+                                Text("月").frame(width: geo.size.width / 7)
+                                Text("火").frame(width: geo.size.width / 7)
+                                Text("水").frame(width: geo.size.width / 7)
+                                Text("木").frame(width: geo.size.width / 7)
+                                Text("金").frame(width: geo.size.width / 7)
+                                Text("土").frame(width: geo.size.width / 7).foregroundStyle(.blue)
+                            }
                         }
                     }
                 })
