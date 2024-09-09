@@ -56,8 +56,10 @@ struct CalendarView: View {
                                 Text("土").frame(width: geo.size.width / 7).foregroundStyle(.blue)
                             }
                         }
-                    }
-                })
+                    })
+                    
+                    CalendarDateView().padding(.vertical)
+                }
             }
         }
     }
