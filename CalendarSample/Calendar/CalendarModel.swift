@@ -22,6 +22,8 @@ class CalendarModel {
     // 末日から土曜までの来月の日数を追加 - C
     // 一週間区切りで-1を追加 - D
     
+    /// 対象月のカレンダーを作成
+    /// - Parameter current: 対象月
     func createCalendar(current: Date){
 //        let current = createDate()
         getDateFirstToLast(current: current)
@@ -94,6 +96,8 @@ class CalendarModel {
         
     }
     
+    /// 末日から来月の日数を追加
+    /// - Parameter current: 対象の月内の日付
     private func getDateNextMonth(current: Date){
         
         let calendar = Calendar.current
