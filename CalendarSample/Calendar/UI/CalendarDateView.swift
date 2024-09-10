@@ -66,15 +66,20 @@ struct DateView: View {
             // 簡易的に書き込めるスペース
             // Text("$100000").font(.caption)
         }.onAppear(){
-            let comp = DateTranslate(date: Date()).getDateComponents()
-            
-            // 個別にフラグを判定
-            let isSameYear = comp.year == Int(date.year)
-            let isSameMonth = comp.month == Int(date.month)
-            let isSameDay = comp.day == Int(date.day)
-            
-            // すべての条件が満たされているか確認
-            self.current = isSameYear && isSameMonth && isSameDay
+            checkCurrentDate()
+        }.onChange(of: currentDate) {
+            checkCurrentDate()
         }
+    }
+    
+    func checkCurrentDate(){
+        let comp = DateTranslate(date: Date()).getDateComponents()
+        
+        // 個別にフラグを判定
+        let isSameYear = comp.year == Int(date.year)
+        let isSameMonth = comp.month == Int(date.month)
+        let isSameDay = comp.day == Int(date.day)
+        // すべての条件が満たされているか確認
+        self.current = isSameYear && isSameMonth && isSameDay
     }
 }

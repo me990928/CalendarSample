@@ -13,6 +13,8 @@ struct CalendarView: View {
     @State var calendarModel: CalendarModel = .init()
     
     @State var currentDate: Date = Date()
+    @State var year: String = ""
+    @State var month: String = ""
     
     var body: some View {
         VStack{
@@ -47,11 +49,15 @@ struct CalendarView: View {
                     
                     Spacer()
                     
-                    Text("2024年 ").bold()
-                    Text("9月").bold()
+                    Text("\(year)年 ").bold()
+                    Text("\(month)月").bold()
                     
                     Spacer()
                     
+                }.onAppear(){
+                    updateCurrentDate()
+                }.onChange(of: currentDate) {
+                    updateCurrentDate()
                 }
             }
             
@@ -78,6 +84,12 @@ struct CalendarView: View {
             calendarModel.createCalendar(current: currentDate)
         }
     }
+    
+    func updateCurrentDate(){
+        year = DateTranslate(date: currentDate).getStructDateComponent().year
+        month = DateTranslate(date: currentDate).getStructDateComponent().month
+    }
+    
 }
 
 #Preview {
