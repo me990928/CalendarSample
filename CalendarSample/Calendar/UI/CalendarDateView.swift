@@ -72,6 +72,7 @@ struct DateView: View {
         }
     }
     
+    /// カレンダーの中に今日の日付があるか確認
     func checkCurrentDate(){
         let comp = DateTranslate(date: Date()).getDateComponents()
         

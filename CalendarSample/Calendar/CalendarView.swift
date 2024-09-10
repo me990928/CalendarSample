@@ -85,6 +85,7 @@ struct CalendarView: View {
         }
     }
     
+    /// 年月のテキストを変更
     func updateCurrentDate(){
         year = DateTranslate(date: currentDate).getStructDateComponent().year
         month = DateTranslate(date: currentDate).getStructDateComponent().month
