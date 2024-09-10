@@ -9,6 +9,11 @@ import SwiftUI
 
 /// カレンダーのメイン
 struct CalendarView: View {
+    
+    @State var calendarModel: CalendarModel = .init()
+    
+    let currentDate: Date = Date()
+    
     var body: some View {
         VStack{
             
@@ -58,9 +63,11 @@ struct CalendarView: View {
                         }
                     })
                     
-                    CalendarDateView().padding(.vertical)
+                    CalendarDateView(calendarArr: $calendarModel.calendarArr).padding(.vertical)
                 }
             }
+        }.onAppear(){
+            calendarModel.createCalendar(current: currentDate)
         }
     }
 }
