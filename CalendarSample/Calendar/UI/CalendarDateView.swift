@@ -15,6 +15,7 @@ struct CalendarDateView: View {
     var count: Int = 1
     let lastDate: Int = 30
     @State var dateViewWidth: CGFloat = 0
+    @Binding var currentDate: Date
     @Binding var calendarArr: [DateComponent]
     
     var body: some View {
@@ -27,7 +28,7 @@ struct CalendarDateView: View {
                         let endIndex = startIndex + 7
                         ForEach(startIndex..<endIndex, id: \.self) { date in
                             if date < calendarArr.count {
-                                DateView(width: dateViewWidth, date: calendarArr[date])
+                                DateView(width: dateViewWidth, currentDate: $currentDate, date: $calendarArr[date])
                             }
                         }
                     }
@@ -46,7 +47,8 @@ struct DateView: View {
     
     let width: CGFloat
     @State var current: Bool = false
-    let date: DateComponent
+    @Binding var currentDate: Date
+    @Binding var date: DateComponent
     
     var body: some View {
         
@@ -55,7 +57,7 @@ struct DateView: View {
                 if current {
                     Circle().foregroundStyle(.pink).frame(width: 40)
                 }
-                if date.month == DateTranslate(date: Date()).getDateComponents().month?.description ?? "0" {
+                if date.month == DateTranslate(date: currentDate).getDateComponents().month?.description ?? "0" {
                     Text(date.day).frame(width: width).foregroundStyle(current ? .white : Color(.label)).bold(current)
                 } else {
                     Text(date.day).frame(width: width).foregroundStyle(.gray)

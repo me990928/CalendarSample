@@ -12,7 +12,7 @@ struct CalendarView: View {
     
     @State var calendarModel: CalendarModel = .init()
     
-    let currentDate: Date = Date()
+    @State var currentDate: Date = Date()
     
     var body: some View {
         VStack{
@@ -22,10 +22,18 @@ struct CalendarView: View {
                     
                     Group{
                         // 先月、来月の選択
-                        Button(action: {}, label: {
+                        Button(action: {
+                            currentDate = calendarModel.downCalendarMonth(current: currentDate)
+                            calendarModel.calendarArr = []
+                            calendarModel.createCalendar(current: currentDate)
+                        }, label: {
                             Image(systemName: "chevron.backward")
                         })
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        Button(action: {
+                            currentDate = calendarModel.upCalendarMonth(current: currentDate)
+                            calendarModel.calendarArr = []
+                            calendarModel.createCalendar(current: currentDate)
+                        }, label: {
                             Image(systemName: "chevron.forward")
                         })
                     }
@@ -63,7 +71,7 @@ struct CalendarView: View {
                         }
                     })
                     
-                    CalendarDateView(calendarArr: $calendarModel.calendarArr).padding(.vertical)
+                    CalendarDateView(currentDate: $currentDate, calendarArr: $calendarModel.calendarArr).padding(.vertical)
                 }
             }
         }.onAppear(){
