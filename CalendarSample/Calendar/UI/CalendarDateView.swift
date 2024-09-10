@@ -55,7 +55,11 @@ struct DateView: View {
                 if current {
                     Circle().foregroundStyle(.pink).frame(width: 40)
                 }
-                Text(date.day).frame(width: width).foregroundStyle(current ? .white : Color(.label)).bold(current)
+                if date.month == DateTranslate(date: Date()).getDateComponents().month?.description ?? "0" {
+                    Text(date.day).frame(width: width).foregroundStyle(current ? .white : Color(.label)).bold(current)
+                } else {
+                    Text(date.day).frame(width: width).foregroundStyle(.gray)
+                }
             }
             // 簡易的に書き込めるスペース
             // Text("$100000").font(.caption)
