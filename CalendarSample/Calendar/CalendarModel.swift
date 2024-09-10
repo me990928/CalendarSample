@@ -129,6 +129,43 @@ class CalendarModel {
         }
     }
     
+    /// 指定した月の翌月一日を取得
+    /// - Parameter current: 指定した月
+    /// - Returns: 翌月一日
+    func upCalendarMonth(current: Date) -> Date {
+        let calendar = Calendar.current
+        
+        guard let startOfMonthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: current)) else {
+            fatalError("初日の取得に失敗")
+        }
+        
+        guard let upMonth = calendar.date(byAdding: DateComponents(month: 1), to: startOfMonthDate) else {
+            fatalError("来月のDate取得に失敗")
+        }
+        
+        return upMonth
+        
+    }
+    
+    /// 指定した月の先月一日を取得
+    /// - Parameter current: 指定した月
+    /// - Returns: 先月一日
+    func downCalendarMonth(current: Date) -> Date {
+        let calendar = Calendar.current
+        
+        guard let startOfMonthDate = calendar.date(from: calendar.dateComponents([.year, .month], from: current)) else {
+            fatalError("初日の取得に失敗")
+        }
+        
+        guard let downMonth = calendar.date(byAdding: DateComponents(month: -1), to: startOfMonthDate) else {
+            fatalError("先月のDate取得に失敗")
+        }
+        
+        return downMonth
+    }
+    
+    /// 指定したDate型を作成
+    /// - Returns: Date型
     func createDate()->Date{// Calendarを使用
         let calendar = Calendar.current
         
