@@ -9,6 +9,13 @@ import SwiftUI
 
 /// カレンダーのメイン
 struct CalendarView: View {
+    
+    @State var calendarModel: CalendarModel = .init()
+    
+    @State var currentDate: Date = Date()
+    @State var year: String = ""
+    @State var month: String = ""
+    
     var body: some View {
         VStack{
             
@@ -17,10 +24,18 @@ struct CalendarView: View {
                     
                     Group{
                         // 先月、来月の選択
-                        Button(action: {}, label: {
+                        Button(action: {
+                            currentDate = calendarModel.downCalendarMonth(current: currentDate)
+                            calendarModel.calendarArr = []
+                            calendarModel.createCalendar(current: currentDate)
+                        }, label: {
                             Image(systemName: "chevron.backward")
                         })
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        Button(action: {
+                            currentDate = calendarModel.upCalendarMonth(current: currentDate)
+                            calendarModel.calendarArr = []
+                            calendarModel.createCalendar(current: currentDate)
+                        }, label: {
                             Image(systemName: "chevron.forward")
                         })
                     }
@@ -34,11 +49,15 @@ struct CalendarView: View {
                     
                     Spacer()
                     
-                    Text("2024年 ").bold()
-                    Text("9月").bold()
+                    Text("\(year)年 ").bold()
+                    Text("\(month)月").bold()
                     
                     Spacer()
                     
+                }.onAppear(){
+                    updateCurrentDate()
+                }.onChange(of: currentDate) {
+                    updateCurrentDate()
                 }
             }
             
@@ -58,11 +77,19 @@ struct CalendarView: View {
                         }
                     })
                     
-                    CalendarDateView().padding(.vertical)
+                    CalendarDateView(currentDate: $currentDate, calendarArr: $calendarModel.calendarArr).padding(.vertical)
                 }
             }
+        }.onAppear(){
+            calendarModel.createCalendar(current: currentDate)
         }
     }
+    
+    func updateCurrentDate(){
+        year = DateTranslate(date: currentDate).getStructDateComponent().year
+        month = DateTranslate(date: currentDate).getStructDateComponent().month
+    }
+    
 }
 
 #Preview {

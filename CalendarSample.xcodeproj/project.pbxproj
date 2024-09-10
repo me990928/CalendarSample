@@ -17,6 +17,7 @@
 		ED2F884C2C8E6027004B75C0 /* CalendarDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F884B2C8E6027004B75C0 /* CalendarDateView.swift */; };
 		ED2F884F2C8E6044004B75C0 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F884E2C8E6044004B75C0 /* CalendarModel.swift */; };
 		ED2F88512C8E6050004B75C0 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F88502C8E6050004B75C0 /* CalendarViewModel.swift */; };
+		ED2F88542C8FA5C5004B75C0 /* Datetranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2F88532C8FA5C5004B75C0 /* Datetranslate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		ED2F884B2C8E6027004B75C0 /* CalendarDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateView.swift; sourceTree = "<group>"; };
 		ED2F884E2C8E6044004B75C0 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		ED2F88502C8E6050004B75C0 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		ED2F88532C8FA5C5004B75C0 /* Datetranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datetranslate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		ED2F88352C8E5FBE004B75C0 /* CalendarSample */ = {
 			isa = PBXGroup;
 			children = (
+				ED2F88522C8FA59C004B75C0 /* Tools */,
 				ED2F88462C8E5FDC004B75C0 /* Calendar */,
 				ED2F88362C8E5FBE004B75C0 /* CalendarSampleApp.swift */,
 				ED2F88382C8E5FBE004B75C0 /* ContentView.swift */,
@@ -99,6 +102,14 @@
 				ED2F884B2C8E6027004B75C0 /* CalendarDateView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		ED2F88522C8FA59C004B75C0 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				ED2F88532C8FA5C5004B75C0 /* Datetranslate.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +184,7 @@
 			files = (
 				ED2F88512C8E6050004B75C0 /* CalendarViewModel.swift in Sources */,
 				ED2F884F2C8E6044004B75C0 /* CalendarModel.swift in Sources */,
+				ED2F88542C8FA5C5004B75C0 /* Datetranslate.swift in Sources */,
 				ED2F88392C8E5FBE004B75C0 /* ContentView.swift in Sources */,
 				ED2F883B2C8E5FBE004B75C0 /* Item.swift in Sources */,
 				ED2F884A2C8E6006004B75C0 /* CalendarDetailView.swift in Sources */,
