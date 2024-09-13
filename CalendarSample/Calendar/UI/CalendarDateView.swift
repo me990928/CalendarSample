@@ -84,7 +84,9 @@ struct DateView: View {
             wage = filterPeopleWage(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
             filterdDatail = filterPeoples(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
         }.onTapGesture {
-            isOpenSheet.toggle()
+            if wage > 0 {
+                isOpenSheet.toggle()
+            }
         }.sheet(isPresented: $isOpenSheet, content: {
             CalendarDetailView(calendarDatail: $filterdDatail)
         })
