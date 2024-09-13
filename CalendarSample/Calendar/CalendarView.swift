@@ -16,6 +16,32 @@ struct CalendarView: View {
     @State var year: String = ""
     @State var month: String = ""
     
+    let dateFormatter = DateFormatter()
+    
+    // testケース
+    var peoples: [People]
+    @State var filterdPeoples: [People] = []
+    
+    init(){
+        
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        self.peoples = [
+            People(wage: 1000, date: dateFormatter.date(from: "2023/11/25") ?? Date()),
+            People(wage: 2000, date: dateFormatter.date(from: "2023/11/30") ?? Date()),
+            People(wage: 3000, date: dateFormatter.date(from: "2023/12/26") ?? Date()),
+            People(wage: 4000, date: dateFormatter.date(from: "2023/12/27") ?? Date()),
+            People(wage: 5000, date: dateFormatter.date(from: "2023/12/30")  ?? Date()),
+            People(wage: 6000, date: dateFormatter.date(from: "2024/01/25") ?? Date()),
+            People(wage: 7000, date: dateFormatter.date(from: "2024/01/30")  ?? Date()),
+            People(wage: 8000, date: dateFormatter.date(from: "2024/09/26")  ?? Date()),
+            People(wage: 9000, date: dateFormatter.date(from: "2024/02/27") ?? Date()),
+            People(wage: 10000, date: dateFormatter.date(from: "2024/02/1") ?? Date()),
+            People(wage: 10000, date: dateFormatter.date(from: "2024/02/1") ?? Date())
+        ]
+        
+    }
+    
     var body: some View {
         VStack{
             
@@ -56,8 +82,10 @@ struct CalendarView: View {
                     
                 }.onAppear(){
                     updateCurrentDate()
+                    filterdPeoples = filterPeople(byYear: Int(year) ?? 0, month: Int(month) ?? 0, peoples: peoples)
                 }.onChange(of: currentDate) {
                     updateCurrentDate()
+                    filterdPeoples = filterPeople(byYear: Int(year) ?? 0, month: Int(month) ?? 0, peoples: peoples)
                 }
             }
             
@@ -77,7 +105,7 @@ struct CalendarView: View {
                         }
                     })
                     
-                    CalendarDateView(currentDate: $currentDate, calendarArr: $calendarModel.calendarArr).padding(.vertical)
+                    CalendarDateView(currentDate: $currentDate, calendarArr: $calendarModel.calendarArr, calendarDetailData: $filterdPeoples).padding(.vertical)
                 }
             }
         }.onAppear(){
@@ -91,8 +119,22 @@ struct CalendarView: View {
         month = DateTranslate(date: currentDate).getStructDateComponent().month
     }
     
+    func filterPeople(byYear year: Int, month: Int, peoples: [People]) -> [People] {
+        let calendar = Calendar.current
+        return peoples.filter { people in
+            let components = calendar.dateComponents([.year, .month], from: people.date)
+            return components.year == year && components.month == month
+        }
+    }
+    
 }
 
 #Preview {
     CalendarView()
+}
+
+
+struct People {
+    let wage: Int
+    let date: Date
 }

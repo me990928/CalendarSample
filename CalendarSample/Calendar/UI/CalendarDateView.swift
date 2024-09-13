@@ -15,8 +15,11 @@ struct CalendarDateView: View {
     var count: Int = 1
     let lastDate: Int = 30
     @State var dateViewWidth: CGFloat = 0
+    @State var detailData = 0
     @Binding var currentDate: Date
     @Binding var calendarArr: [DateComponent]
+    
+    @Binding var calendarDetailData: [People]
     
     var body: some View {
         GeometryReader { geo in
@@ -28,7 +31,7 @@ struct CalendarDateView: View {
                         let endIndex = startIndex + 7
                         ForEach(startIndex..<endIndex, id: \.self) { date in
                             if date < calendarArr.count {
-                                DateView(width: dateViewWidth, currentDate: $currentDate, date: $calendarArr[date])
+                                DateView(width: dateViewWidth, currentDate: $currentDate, date: $calendarArr[date], calendarDetailData: $calendarDetailData)
                             }
                         }
                     }
@@ -47,8 +50,12 @@ struct DateView: View {
     
     let width: CGFloat
     @State var current: Bool = false
+    @State var isOpenSheet: Bool = false
     @Binding var currentDate: Date
     @Binding var date: DateComponent
+    @Binding var calendarDetailData: [People]
+    @State var filterdDatail: [People] = []
+    @State var wage: Int = 0
     
     var body: some View {
         
@@ -64,12 +71,23 @@ struct DateView: View {
                 }
             }
             // 簡易的に書き込めるスペース
-            // Text("$100000").font(.caption)
+            if wage > 0 {
+                Text("¥\(String(wage))").font(.caption)
+            }
         }.onAppear(){
             checkCurrentDate()
+            wage = filterPeopleWage(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
+            filterdDatail = filterPeoples(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
+            
         }.onChange(of: currentDate) {
             checkCurrentDate()
-        }
+            wage = filterPeopleWage(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
+            filterdDatail = filterPeoples(byYear: Int(date.year) ?? 0, month: Int(date.month) ?? 0, day: Int(date.day) ?? 0, peoples: calendarDetailData)
+        }.onTapGesture {
+            isOpenSheet.toggle()
+        }.sheet(isPresented: $isOpenSheet, content: {
+            CalendarDetailView(calendarDatail: $filterdDatail)
+        })
     }
     
     /// カレンダーの中に今日の日付があるか確認
@@ -82,5 +100,22 @@ struct DateView: View {
         let isSameDay = comp.day == Int(date.day)
         // すべての条件が満たされているか確認
         self.current = isSameYear && isSameMonth && isSameDay
+    }
+    
+    func filterPeopleWage(byYear year: Int, month: Int, day: Int, peoples: [People]) -> Int {
+        let filtered = filterPeoples(byYear: year, month: month, day: day, peoples: peoples)
+        var wage = 0
+        for filter in filtered {
+            wage += filter.wage
+        }
+        return wage
+    }
+    
+    func filterPeoples(byYear year: Int, month: Int, day: Int, peoples: [People]) -> [People] {
+        let calendar = Calendar.current
+        return peoples.filter { people in
+            let components = calendar.dateComponents([.year, .month, .day], from: people.date)
+            return components.year == year && components.month == month && components.day == day
+        }
     }
 }
