@@ -117,19 +117,15 @@ struct CalendarView: View {
                     if value.translation.height < -50 {
                         // 上スワイプ
                         print("上")
-                        withAnimation(){
-                            currentDate = calendarModel.upCalendarMonth(current: currentDate)
-                            calendarModel.calendarArr = []
-                            calendarModel.createCalendar(current: currentDate)
-                        }
+                        currentDate = calendarModel.upCalendarMonth(current: currentDate)
+                        calendarModel.calendarArr = []
+                        calendarModel.createCalendar(current: currentDate)
                     } else if value.translation.height > 30 {
                         // 下スワイプ
                         print("下")
-                        withAnimation(){
-                            currentDate = calendarModel.downCalendarMonth(current: currentDate)
-                            calendarModel.calendarArr = []
-                            calendarModel.createCalendar(current: currentDate)
-                        }
+                        currentDate = calendarModel.downCalendarMonth(current: currentDate)
+                        calendarModel.calendarArr = []
+                        calendarModel.createCalendar(current: currentDate)
                     }
                 }
         )
